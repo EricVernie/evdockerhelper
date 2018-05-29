@@ -30,7 +30,10 @@ namespace ev.docker.host
             this.DataContext = _viewModel;
             lstViewImages.MouseDoubleClick += LstViewImages_MouseDoubleClick;
             lstViewContainers.MouseDoubleClick += LstViewContainers_MouseDoubleClick;
+            
         }
+
+      
 
         private async void LstViewContainers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -55,8 +58,7 @@ namespace ev.docker.host
             try
             {
                 var reposTag = ((ImagesListResponse)(lstViewImages.SelectedItem)).ID;
-                await _viewModel.DeleteImageAsync(reposTag);
-                await _viewModel.GetImagesAsync();
+                await _viewModel.DeleteImageAsync(reposTag);                
                 lstViewImages.ItemsSource = _viewModel.Images;
             }
             catch (Exception ex)
@@ -103,6 +105,45 @@ namespace ev.docker.host
                 
             }
             
+        }
+
+        private async void lstViewContainers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var container = GetCurrentContainer();
+            if (container ==null)
+            {
+                return;
+            }
+
+            if (!container.State.Equals("running"))
+            {
+                return;
+            }
+
+            await _viewModel.ListContainerProcessAsync(container.ID);
+            grdProcess.DataContext = _viewModel.EVProcesses;
+            lstProcesses.ItemsSource = _viewModel.EVProcesses.Processes;
+        }
+
+        private ContainerListResponse GetCurrentContainer()
+        {
+            return (ContainerListResponse)lstViewContainers.SelectedItem;
+        }
+
+        private void cmdStopOrStart_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var container = GetCurrentContainer();
+
+                _viewModel.StopOrStartContainerAsync(container);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+          
         }
     }
 }

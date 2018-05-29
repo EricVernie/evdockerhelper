@@ -8,22 +8,22 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="149*"/>
-            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="245*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="55*"/>
-            <RowDefinition Height="246*"/>
-            <RowDefinition Height="122*"/>
+            <RowDefinition Height="54*"/>
+            <RowDefinition Height="153*"/>
+            <RowDefinition Height="212*"/>
         </Grid.RowDefinitions>
         <Button Content="Get Images" x:Name="cmdGetImages" HorizontalAlignment="Left" Margin="32,22,0,0" VerticalAlignment="Top" Width="134" Click="cmdGetImages_Click" Height="23"/>
-        <ListView x:Name="lstViewImages" ItemsSource="{Binding}" Margin="0,0,1,1.5" MouseLeftButtonUp="lstViewImages_MouseLeftButtonUp" Grid.Row="1">
+        <ListView x:Name="lstViewImages" ItemsSource="{Binding}" Margin="0,0,1,1" MouseLeftButtonUp="lstViewImages_MouseLeftButtonUp" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <StackPanel Background="AliceBlue">
                             <TextBlock Text="Tags:" FontWeight="Black" ></TextBlock>
-                            <TextBlock Text="{Binding RepoTags[0]}" ></TextBlock>
+                            <ListBox ItemsSource="{Binding RepoTags}"/>
                             <TextBlock Text="ID:" FontWeight="Black"></TextBlock>
                             <TextBlock Text="{Binding ID}" ></TextBlock>
                             <TextBlock Text="ParentID:" FontWeight="Black" ></TextBlock>
@@ -36,15 +36,45 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Content="Get Containers" Grid.Column="1" HorizontalAlignment="Left" Margin="23,22,0,0" VerticalAlignment="Top" Width="94" Click="Button_Click" Height="20"/>
-        <ListView x:Name="lstViewContainers" ItemsSource="{Binding}" Margin="0" Grid.Row="1" Grid.Column="1">
+        <ListView x:Name="lstViewContainers" ItemsSource="{Binding}" Margin="0" Grid.Row="1" Grid.Column="1" SelectionChanged="lstViewContainers_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <StackPanel>
+                            <TextBlock Text="Names:" FontWeight="Bold" ></TextBlock>
+                            <ListBox ItemsSource="{Binding Names}"></ListBox>
+                            <TextBlock Text="{Binding ID}" FontSize="15"/>
+                            <TextBlock Text="Image:" FontWeight="Bold" ></TextBlock>
                             <TextBlock Text="{Binding Image}" FontSize="15"/>
-                            <TextBlock Text="{Binding Command}" ></TextBlock>
-                            <TextBlock Text="ImageID:" FontWeight="Black"/>
                             <TextBlock Text="{Binding ImageID}"></TextBlock>
+
+                            <TextBlock Text="Command:" FontWeight="Bold" ></TextBlock>
+                            <TextBlock Text="{Binding Command}" ></TextBlock>
+
+                            <TextBlock Text="Ports:" FontWeight="Bold"></TextBlock>
+                            <ComboBox ItemsSource="{Binding Ports}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="IP:"/>
+                                            <TextBlock Text="{Binding IP}"/>
+                                            <TextBlock Text="PrivatePort:"/>
+                                            <TextBlock Text="{Binding PrivatePort}"/>
+                                            <TextBlock Text="PublicPort:"/>
+                                            <TextBlock Text="{Binding PublicPort}"/>
+                                            <TextBlock Text="Type:"/>
+                                            <TextBlock Text="{Binding Type}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Text="State:" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding State}" ></TextBlock>
+                            <TextBlock Text="Status:" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding Status}" ></TextBlock>
+                            <TextBlock Text="Labels:" FontWeight="Bold"></TextBlock>
+                            <ComboBox ItemsSource="{Binding Labels}"/>
+
 
                         </StackPanel>
 
@@ -52,7 +82,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <Grid Background="Yellow" x:Name="grdProcess" Grid.Column="1" Grid.Row="2">
+            <ListBox  ItemsSource="{Binding Processes}" x:Name="lstProcesses" Grid.Column="1" Margin="0" Grid.Row="2">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ListBox ItemsSource="{Binding}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Button Content="Stop Or Start" x:Name="cmdStopOrStart" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="151,22,0,0" VerticalAlignment="Top" Width="81" Click="cmdStopOrStart_Click"/>
 
     </Grid>
 </Window>

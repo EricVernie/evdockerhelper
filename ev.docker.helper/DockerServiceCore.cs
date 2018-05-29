@@ -43,9 +43,11 @@ namespace ev.docker.helper
         {
             return await _dockerProvider.Containers.ListContainersAsync(new ContainersListParameters()
             {
-                All = true
+                All = true,
+                
             }).ConfigureAwait(false);
 
+          
         }
         public async Task RemoveContainerAsync(string id)
         {
@@ -62,5 +64,35 @@ namespace ev.docker.helper
                 Force = true
             });
         }
+
+        public async Task<ContainerProcessesResponse> ListContainerProcessAsync(string id)
+        {
+            return await _dockerProvider.Containers.ListProcessesAsync(id, new ContainerListProcessesParameters()
+            {
+
+            });
+
+            
+        }
+
+        public async Task StopOrStartContainerAsync(ContainerListResponse container)
+        {
+            if (container.State.Equals("running"))
+            {
+                await _dockerProvider.Containers.KillContainerAsync(container.ID, new ContainerKillParameters()
+                {
+
+                });
+            }
+            else
+            {
+                await _dockerProvider.Containers.StartContainerAsync(container.ID, new ContainerStartParameters()
+                {
+
+                });
+            }
+            
+        }
+
     }
 }

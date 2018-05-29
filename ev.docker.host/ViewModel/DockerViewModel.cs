@@ -12,6 +12,9 @@ namespace ev.docker.host.ViewModel
 {
     public class DockerViewModel : BindableBase
     {
+        ContainerProcessesResponse _evprocesses;
+        public ContainerProcessesResponse EVProcesses { get { return _evprocesses; } set { this.SetProperty(ref _evprocesses, value); } }
+
         IList<ImagesListResponse> _images;
         public IList<ImagesListResponse> Images { get { return _images; } set { this.SetProperty(ref _images,value); } }
 
@@ -45,6 +48,15 @@ namespace ev.docker.host.ViewModel
         public async Task GetContainersAsync()
         {
             _containers = await DockerServiceCore.Instance.GetContainersAsync();
+        }
+
+        public async Task ListContainerProcessAsync(string id)
+        {
+            _evprocesses = await DockerServiceCore.Instance.ListContainerProcessAsync(id);
+        }
+        public async void StopOrStartContainerAsync(ContainerListResponse container)
+        {
+            await DockerServiceCore.Instance.StopOrStartContainerAsync(container);
         }
     }
 }
