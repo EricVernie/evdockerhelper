@@ -39,6 +39,7 @@ namespace ev.docker.host.ViewModel
         public async Task RemoveContainerAsync(string id)
         {
             await DockerServiceCore.Instance.RemoveContainerAsync(id);
+            await DockerServiceCore.Instance.GetContainersAsync();
         }
 
         public async Task GetContainersAsync()

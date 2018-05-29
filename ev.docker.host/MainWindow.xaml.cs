@@ -34,7 +34,20 @@ namespace ev.docker.host
 
         private async void LstViewContainers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-             await _viewModel.RemoveContainerAsync(((ContainerListResponse)(lstViewContainers.SelectedItem)).ID);
+            try
+            {
+                await _viewModel.RemoveContainerAsync(((ContainerListResponse)(lstViewContainers.SelectedItem)).ID);
+               
+
+                lstViewContainers.ItemsSource = _viewModel.Containers;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            
+            
         }
 
         private async void LstViewImages_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -43,6 +56,8 @@ namespace ev.docker.host
             {
                 var reposTag = ((ImagesListResponse)(lstViewImages.SelectedItem)).ID;
                 await _viewModel.DeleteImageAsync(reposTag);
+                await _viewModel.GetImagesAsync();
+                lstViewImages.ItemsSource = _viewModel.Images;
             }
             catch (Exception ex)
             {
@@ -55,9 +70,17 @@ namespace ev.docker.host
 
         private async void cmdGetImages_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                await _viewModel.GetImagesAsync();
+                lstViewImages.ItemsSource = _viewModel.Images;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
             
-            await _viewModel.GetImagesAsync();
-            lstViewImages.ItemsSource = _viewModel.Images;
         }
 
         private void lstViewImages_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -68,10 +91,18 @@ namespace ev.docker.host
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            await _viewModel.GetContainersAsync();
+            try
+            {
+                await _viewModel.GetContainersAsync();
 
-            lstViewContainers.ItemsSource = _viewModel.Containers;
+                lstViewContainers.ItemsSource = _viewModel.Containers;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                
+            }
+            
         }
     }
 }

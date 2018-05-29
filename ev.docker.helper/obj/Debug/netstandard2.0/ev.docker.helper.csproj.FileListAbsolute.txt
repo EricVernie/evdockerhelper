@@ -7,3 +7,12 @@ D:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.help
 D:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.AssemblyInfo.cs
 D:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.dll
 D:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.pdb
+C:\repos\evdockerhelper\ev.docker.helper\bin\Debug\netstandard2.0\ev.docker.helper.deps.json
+C:\repos\evdockerhelper\ev.docker.helper\bin\Debug\netstandard2.0\ev.docker.helper.dll
+C:\repos\evdockerhelper\ev.docker.helper\bin\Debug\netstandard2.0\ev.docker.helper.pdb
+C:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.csprojAssemblyReference.cache
+C:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.csproj.CoreCompileInputs.cache
+C:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.AssemblyInfoInputs.cache
+C:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.AssemblyInfo.cs
+C:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.dll
+C:\repos\evdockerhelper\ev.docker.helper\obj\Debug\netstandard2.0\ev.docker.helper.pdb
